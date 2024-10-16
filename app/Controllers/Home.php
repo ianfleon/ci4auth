@@ -6,6 +6,13 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('welcome_message');
+
+        helper('jwt');
+
+        $token = createJWT('ian@gmail.com');
+
+        // return view('welcome_message');
+
+        return $token;
     }
 }

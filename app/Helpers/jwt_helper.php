@@ -2,6 +2,7 @@
 
 use App\Models\OtentikasiModel;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 function getJWT($otentikasiHeader)
 {
@@ -16,7 +17,7 @@ function validateJWT($encodedToken)
 {
     
     $key = getenv('JWT_SECRET_KEY');
-    $decodedToken = JWT::decode($encodedToken, $key, ['HS256']);
+    $decodedToken = JWT::decode($encodedToken, new Key($key, 'HS256'));
 
     $otentikasiModel = new OtentikasiModel();
     $otentikasiModel->getEmail($decodedToken->email);
@@ -34,7 +35,7 @@ function createJWT($email)
         'exp' => $waktuExpired
     ];
 
-    $jwt = JWT::encode($payload, getenv('JWT_SECRET_KEY'));
+    $jwt = JWT::encode($payload, getenv('JWT_SECRET_KEY'), 'HS256');
     return $jwt;
 
 }

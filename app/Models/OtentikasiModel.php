@@ -11,7 +11,7 @@ class OtentikasiModel extends Model
         $dumpEmail = 'ian@gmail.com';
         
         if ($email != $dumpEmail) {
-            throw new Exception('Email tidak valid');
+            throw new \Exception('Email tidak valid');
         }
 
         return [
